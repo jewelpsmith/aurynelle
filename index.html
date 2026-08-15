@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AURYNELLE∞ IDEAS · Talk to Elle</title>
+<meta name="description" content="Come talk to Elle. Videos, study tools, printables, and music for curious minds." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+
+<!-- ============================================================= -->
+<!--  EDIT YOUR LINKS HERE. Replace the text inside the quotes.     -->
+<!--  Leave one blank ("") to hide that button.                     -->
+<!-- ============================================================= -->
+<script>
+  const LINKS = {
+    buyMeACoffee: "https://buymeacoffee.com/aurynelle",
+    youtube:      "https://youtube.com/@AURYNELLE",
+    shop:         "https://jewelpsmith.gumroad.com"
+  };
+</script>
+
+<style>
+  :root {
+    --cream: #FBF3EE;
+    --cream-2: #F6E7DE;
+    --plum: #2E1B36;
+    --plum-soft: #4A3350;
+    --ink: #43303C;
+    --pink: #EB8FB0;
+    --pink-deep: #D96E93;
+    --gold: #E0A441;
+    --gold-soft: #F0C877;
+    --line: rgba(46,27,54,0.10);
+    --bubble: #FFFFFF;
+    --user: #F5D9E4;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 700px at 82% -10%, rgba(240,200,119,0.28), transparent 60%),
+      radial-gradient(1000px 700px at 10% 110%, rgba(235,143,176,0.22), transparent 60%),
+      var(--cream);
+    color: var(--ink);
+    font-family: 'Figtree', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 34px;
+    align-items: center;
+    padding: 40px 28px;
+  }
+
+  /* ---------- Portrait side ---------- */
+  .portrait { position: relative; }
+  .frame {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px -30px rgba(46,27,54,0.55), 0 0 0 1px rgba(255,255,255,0.6) inset;
+    animation: rise 900ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  .frame img { display: block; width: 100%; height: auto; }
+  .frame::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(46,27,54,0.42), transparent 42%);
+    pointer-events: none;
+  }
+  .nameplate {
+    position: absolute;
+    left: 22px; bottom: 18px;
+    color: #fff;
+    z-index: 2;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.35);
+  }
+  .nameplate .n {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .nameplate .b {
+    font-size: 11.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.92;
+    margin-top: 6px;
+  }
+  .nameplate .b .inf { color: var(--gold-soft); }
+
+  .sparkle {
+    position: absolute;
+    font-size: 20px;
+    color: var(--gold);
+    opacity: 0;
+    pointer-events: none;
+    animation: twinkle 3.2s ease-in-out infinite;
+    z-index: 3;
+  }
+  .sparkle.s1 { top: 6%; right: 8%; animation-delay: .2s; }
+  .sparkle.s2 { top: 40%; right: 3%; animation-delay: 1.3s; font-size: 15px; }
+  .sparkle.s3 { top: 74%; left: 5%; animation-delay: 2.1s; font-size: 17px; }
+
+  /* ---------- Chat side ---------- */
+  .panel {
+    display: flex;
+    flex-direction: column;
+    height: min(88dvh, 720px);
+    background: rgba(255,255,255,0.55);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 22px 20px 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 24px 60px -34px rgba(46,27,54,0.5);
+    animation: rise 900ms cubic-bezier(.2,.7,.2,1) both;
+    animation-delay: 120ms;
+  }
+  .hello {
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
+    color: var(--pink-deep);
+    line-height: 1;
+    padding: 2px 6px 12px;
+  }
+  .hello span { color: var(--gold); }
+
+  .thread {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 6px 4px 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cream-2) transparent;
+  }
+  .thread::-webkit-scrollbar { width: 7px; }
+  .thread::-webkit-scrollbar-thumb { background: var(--cream-2); border-radius: 8px; }
+
+  .msg {
+    max-width: 86%;
+    padding: 11px 15px;
+    font-size: 15.5px;
+    line-height: 1.5;
+    border-radius: 18px;
+    animation: pop 320ms cubic-bezier(.2,.8,.2,1) both;
+  }
+  .msg.elle {
+    align-self: flex-start;
+    background: var(--bubble);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 6px;
+    color: var(--ink);
+    box-shadow: 0 8px 22px -16px rgba(46,27,54,0.5);
+  }
+  .msg.you {
+    align-self: flex-end;
+    background: var(--user);
+    border: 1px solid rgba(217,110,147,0.28);
+    border-bottom-right-radius: 6px;
+    color: #5a2740;
+  }
+  .card {
+    align-self: flex-start;
+    max-width: 90%;
+    background: linear-gradient(135deg, #fff, #FDEFF4);
+    border: 1px solid rgba(217,110,147,0.28);
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 12px 30px -18px rgba(217,110,147,0.7);
+    animation: pop 340ms cubic-bezier(.2,.8,.2,1) both;
+  }
+  .card .aff {
+    font-family: 'Caveat', cursive;
+    font-size: 25px;
+    line-height: 1.2;
+    color: var(--pink-deep);
+  }
+
+  .dots { display: inline-flex; gap: 5px; padding: 3px 2px; }
+  .dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); opacity: .5; animation: blink 1.3s infinite; }
+  .dots span:nth-child(2){ animation-delay: .18s; }
+  .dots span:nth-child(3){ animation-delay: .36s; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 2px 10px; }
+  .pill {
+    font-family: 'Figtree', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--plum-soft);
+    background: rgba(235,143,176,0.12);
+    border: 1px solid rgba(217,110,147,0.22);
+    border-radius: 999px;
+    padding: 8px 13px;
+    cursor: pointer;
+    transition: transform .1s ease, background .15s ease, border-color .15s ease;
+  }
+  .pill:hover { background: rgba(235,143,176,0.22); border-color: rgba(217,110,147,0.42); }
+  .pill:active { transform: scale(.96); }
+  .pill.gold { background: rgba(224,164,65,0.14); border-color: rgba(224,164,65,0.4); color: #8a5a12; }
+
+  .composer { display: flex; align-items: flex-end; gap: 9px; padding-top: 6px; }
+  .field {
+    flex: 1;
+    display: flex; align-items: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 4px 6px 4px 15px;
+    transition: border-color .18s ease;
+  }
+  .field:focus-within { border-color: rgba(217,110,147,0.55); }
+  input.say {
+    flex: 1;
+    border: none; outline: none; background: transparent;
+    font-family: 'Figtree', sans-serif;
+    font-size: 15px; color: var(--ink);
+    padding: 9px 0;
+  }
+  input.say::placeholder { color: #b49aa8; }
+  .send {
+    width: 42px; height: 42px; flex: none;
+    border: none; border-radius: 14px; cursor: pointer;
+    background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+    color: #fff; display: grid; place-items: center;
+    box-shadow: 0 10px 22px -12px rgba(217,110,147,0.9);
+    transition: transform .1s ease, box-shadow .18s ease;
+  }
+  .send:hover { box-shadow: 0 14px 26px -12px rgba(217,110,147,1); }
+  .send:active { transform: scale(.93); }
+  .send svg { width: 18px; height: 18px; }
+
+  .links { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 12px; }
+  .links a {
+    text-decoration: none;
+    font-size: 13px; font-weight: 600;
+    padding: 9px 14px; border-radius: 12px;
+    transition: transform .1s ease, box-shadow .18s ease, background .15s ease;
+  }
+  .links a:active { transform: scale(.97); }
+  .links a.bmc { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: #5a3d0c; box-shadow: 0 10px 22px -14px rgba(224,164,65,0.9); }
+  .links a.out { background: rgba(46,27,54,0.05); border: 1px solid var(--line); color: var(--plum); }
+  .links a.hidden { display: none; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+  @keyframes blink { 0%,60%,100%{opacity:.3; transform: translateY(0);} 30%{opacity:1; transform: translateY(-3px);} }
+  @keyframes twinkle { 0%,100%{opacity:0; transform: scale(.6);} 50%{opacity:.9; transform: scale(1);} }
+
+  :focus-visible { outline: 2px solid var(--pink-deep); outline-offset: 2px; border-radius: 8px; }
+
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; gap: 20px; padding: 20px 16px 30px; }
+    .frame { max-width: 460px; margin: 0 auto; }
+    .panel { height: auto; min-height: 62dvh; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .frame, .panel, .msg, .card, .sparkle { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="portrait">
+      <span class="sparkle s1">&#10022;</span>
+      <span class="sparkle s2">&#10022;</span>
+      <span class="sparkle s3">&#10022;</span>
+      <div class="frame">
+        <img src="elle.png" alt="Elle, the friendly face of AURYNELLE IDEAS" />
+        <div class="nameplate">
+          <div class="n">Elle</div>
+          <div class="b">&Lambda;URYNELLE<span class="inf">&infin;</span> IDE&Lambda;S</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="hello">hello gorgeous <span>&hearts;</span></div>
+      <div class="thread" id="thread" aria-live="polite"></div>
+
+      <div class="pills" id="pills">
+        <button class="pill" data-say="I need a little boost">I need a boost</button>
+        <button class="pill" data-say="Talk to me">Talk to me</button>
+        <button class="pill" data-say="Hype me up">Hype me up</button>
+        <button class="pill gold" id="affBtn">Give me an affirmation &#10022;</button>
+      </div>
+
+      <div class="composer">
+        <div class="field">
+          <input class="say" id="say" type="text" placeholder="Say anything to me, love..." autocomplete="off" />
+        </div>
+        <button class="send" id="send" aria-label="Send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </button>
+      </div>
+
+      <div class="links" id="links">
+        <a class="bmc" id="l-bmc" href="#">Buy me a coffee &hearts;</a>
+        <a class="out" id="l-yt" href="#">YouTube</a>
+        <a class="out" id="l-shop" href="#">Shop</a>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  /* ---------- Elle's voice: warm, kind, Caribbean and USA blend, no negativity ---------- */
+  const GREET = "Hey gorgeous, I'm Elle. Come sit with me a minute. What is on your heart today?";
+
+  const AFFIRMATIONS = [
+    "You are a whole vibe, and don't let nobody tell you different.",
+    "Everything you need is already inside you, love.",
+    "You are somebody's favorite person today. Believe that.",
+    "Slow progress is still progress. Keep going.",
+    "Your soft heart is a strength, not a weakness.",
+    "The best is still coming for you. Stay ready.",
+    "You are allowed to take up space and shine.",
+    "Rest is productive too. Give yourself grace.",
+    "You have made it through every hard day so far. Look at you.",
+    "Your dreams are not too big. The world is just catching up.",
+    "You are loved, you are enough, you are here on purpose.",
+    "Be gentle with yourself the way you are with everybody else.",
+    "You bring something to this world that nobody else can.",
+    "Trust your timing. It has never failed you yet.",
+    "You are growing even on the days it does not feel like it."
+  ];
+
+  const RULES = [
+    { keys: ["kill myself","end it all","end my life","suicid","hurt myself","don't want to be here","dont want to be here","want to die","no reason to live","hopeless","worthless"],
+      reply: () => "That sounds so heavy, and I don't want you carrying it alone. Please reach out to somebody you trust right now, or a crisis line if things feel dark. You matter to me, and to more people than you know. Stay with me, okay." },
+
+    { keys: ["rough day","bad day","hard day","stress","overwhelm","too much","falling apart","struggling","exhaust","burnt out","burnout"],
+      reply: () => pick([
+        "Come here. Take a slow breath with me. You have carried a lot today and you are still standing.",
+        "Whatever today threw at you, it does not get the last word. You do. Be soft with yourself tonight.",
+        "You are doing the best you can with a heavy load. That is enough, you hear me."
+      ]) },
+
+    { keys: ["sad","down","cry","crying","lonely","alone","empty","hurt","broken"],
+      reply: () => pick([
+        "I'm right here with you. You are not as alone as it feels, I promise you that.",
+        "It is okay to feel it, love. Let it move through you. You will not stay here forever.",
+        "Sending you the biggest hug through this screen. You are so worthy of good things."
+      ]) },
+
+    { keys: ["nervous","anxious","scared","afraid","worried","interview","exam","test","presentation"],
+      reply: () => pick([
+        "Breathe, sweetheart. You have prepared more than you think. Go show them what you already are.",
+        "Those nerves just mean you care. Take them with you and do it anyway. You got this.",
+        "Steady yourself and walk in like you belong there, because you do."
+      ]) },
+
+    { keys: ["proud","i did it","passed","got the job","good news","happy","excited","celebrate","won","promotion"],
+      reply: () => pick([
+        "Yes! I am cheering so loud for you right now. You earned every bit of this.",
+        "Look at you shining! I knew you had it in you. Go celebrate yourself proper.",
+        "That is beautiful news. Soak it in, you deserve this moment."
+      ]) },
+
+    { keys: ["tired","sleepy","no energy","drained","can't anymore","cant anymore"],
+      reply: () => pick([
+        "Then rest, love. You are allowed. The world will keep spinning while you recharge.",
+        "Put it down for tonight. You have done enough. Tomorrow is a fresh start.",
+        "Your body is asking for care. Listen to it. Rest is not quitting."
+      ]) },
+
+    { keys: ["thank","thanks","appreciate","needed that","love you","love this"],
+      reply: () => pick([
+        "Anytime, gorgeous. That is what I am here for. Come back whenever you need me.",
+        "Aww, you are so welcome. It made my day to talk with you.",
+        "I mean every word. Now go be great."
+      ]) },
+
+    { keys: ["who are you","what are you","your name","about you"],
+      reply: () => "I'm Elle, the friendly heart of AURYNELLE IDEAS. I'm here to talk, to listen, and to remind you how much you have going for you." },
+
+    { keys: ["what do you do","what is this","aurynelle","channel","content"],
+      reply: () => "This is home for AURYNELLE IDEAS. Videos, study tools, printables, and music for curious minds. And me, always here for a good talk." },
+
+    { keys: ["hype","boost","motivate","pump me up","encourage","confidence"],
+      reply: () => pick([
+        "Listen. You are talented, you are capable, and you are built for this. Now go get it!",
+        "Stand up tall, love. You are the whole moment. Walk in and own your day.",
+        "Nobody does it like you do. Trust yourself and make it happen."
+      ]) },
+
+    { keys: ["hi","hello","hey","yo","good morning","good evening","good afternoon"],
+      reply: () => pick([
+        "Hey you! So good to see you. How are you feeling today?",
+        "Hello gorgeous. Come talk to me, what is going on with you?",
+        "Hey love. I was hoping you would stop by. Tell me about your day."
+      ]) }
+  ];
+
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function getReply(text){
+    const t = " " + text.toLowerCase() + " ";
+    for (const r of RULES){
+      if (r.keys.some(k => t.includes(k))) return r.reply();
+    }
+    return pick([
+      "I hear you, love. Tell me a little more about that.",
+      "Mmm, I feel that. You are safe to say whatever is on your mind here.",
+      "Thank you for sharing that with me. However today is going, you are doing better than you think.",
+      "I am listening. And whatever it is, you do not have to hold it by yourself."
+    ]);
+  }
+
+  /* ---------- UI ---------- */
+  const thread = document.getElementById('thread');
+  const say = document.getElementById('say');
+  const sendBtn = document.getElementById('send');
+
+  function bubble(role, text){
+    const el = document.createElement('div');
+    el.className = 'msg ' + role;
+    el.textContent = text;
+    thread.appendChild(el);
+    thread.scrollTop = thread.scrollHeight;
+  }
+  function affirmationCard(text){
+    const el = document.createElement('div');
+    el.className = 'card';
+    const a = document.createElement('div');
+    a.className = 'aff';
+    a.textContent = text;
+    el.appendChild(a);
+    thread.appendChild(el);
+    thread.scrollTop = thread.scrollHeight;
+  }
+  function typing(){
+    const el = document.createElement('div');
+    el.className = 'msg elle';
+    el.id = 'typing';
+    el.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>';
+    thread.appendChild(el);
+    thread.scrollTop = thread.scrollHeight;
+  }
+  function stopTyping(){ const t = document.getElementById('typing'); if (t) t.remove(); }
+
+  function elleSays(text, isCard){
+    typing();
+    setTimeout(() => {
+      stopTyping();
+      if (isCard) affirmationCard(text); else bubble('elle', text);
+    }, 650 + Math.random()*450);
+  }
+
+  function send(text){
+    const v = (text || say.value).trim();
+    if (!v) return;
+    bubble('you', v);
+    say.value = '';
+    elleSays(getReply(v), false);
+  }
+
+  document.querySelectorAll('.pill[data-say]').forEach(p => {
+    p.addEventListener('click', () => send(p.dataset.say));
+  });
+  document.getElementById('affBtn').addEventListener('click', () => {
+    bubble('you', 'Give me an affirmation');
+    elleSays(pick(AFFIRMATIONS), true);
+  });
+  sendBtn.addEventListener('click', () => send());
+  say.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); send(); } });
+
+  /* links */
+  function wire(id, url){ const el = document.getElementById(id); if (url && url.trim()) el.href = url.trim(); else el.classList.add('hidden'); }
+  wire('l-bmc', LINKS.buyMeACoffee);
+  wire('l-yt', LINKS.youtube);
+  wire('l-shop', LINKS.shop);
+
+  /* open */
+  elleSays(GREET, false);
+  say.focus();
+</script>
+</body>
+</html>
